@@ -66,6 +66,8 @@ public class ProductController {
   public ResponseEntity<ProductDto> getProductById(
       @PathVariable Long id
   ) {
+    System.out.println("@PathVariable Long id");
+    System.out.println(id);
     var dto = ProductUtils.toDto(service.getProductById(id));
     return ResponseEntity.ok(dto);
   }

@@ -1,4 +1,4 @@
-package com.ff.stockservice.domain.dto;
+package com.ff.stockservice.domain.dto.external;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
@@ -14,6 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Schema(description = "Order data transfer object")
 public class OrderItemDto {
+
+  @Schema(description = "Unique identifier")
+  private Long id;
 
   @NotNull(message = "Stock id is required")
   @Schema(description = "Stock id", example = "1")

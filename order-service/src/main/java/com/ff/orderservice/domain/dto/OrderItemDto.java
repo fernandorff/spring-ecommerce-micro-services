@@ -15,6 +15,9 @@ import lombok.Setter;
 @Schema(description = "Order data transfer object")
 public class OrderItemDto {
 
+  @Schema(description = "Unique identifier")
+  private Long id;
+
   @NotNull(message = "Stock id is required")
   @Schema(description = "Stock id", example = "1")
   Long stockId;

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(schema = "stock", name = "t_stock")
 @Entity
+@ToString
 public class Stock {
 
   @Id

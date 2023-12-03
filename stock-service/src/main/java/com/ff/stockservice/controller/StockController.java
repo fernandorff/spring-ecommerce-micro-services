@@ -1,6 +1,7 @@
 package com.ff.stockservice.controller;
 
 import com.ff.stockservice.domain.dto.StockDto;
+import com.ff.stockservice.domain.dto.external.OrderDto;
 import com.ff.stockservice.service.StockService;
 import com.ff.stockservice.utils.StockUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -88,5 +89,14 @@ public class StockController {
       @PageableDefault(size = 10, page = 0, sort = "id") Pageable pageable
   ) {
     return ResponseEntity.ok(service.getPagedStocks(pageable));
+  }
+
+  @PostMapping("execute-order")
+  @Operation(summary = "Execute order to update stock", method = "PATCH")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<List<StockDto>> executeOrder(
+      @Valid @RequestBody OrderDto dto
+  ) {
+    return ResponseEntity.ok(service.executeOrder(dto));
   }
 }

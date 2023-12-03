@@ -37,13 +37,10 @@ public class OrderService {
 
     var entity = OrderMapper.MAPPER.toOrder(dto);
 
+    stockApiCommunicationService.executeOrder(dto);
+
     List<OrderItem> orderItems = new ArrayList<>();
     for (OrderItemDto itemDto : dto.getOrderItems()) {
-      try {
-        stockApiCommunicationService.getStockById(itemDto.getStockId());
-      } catch (Exception e) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Stock not found");
-      }
       OrderItem orderItemEntity = OrderMapper.MAPPER.toOrderItem(itemDto);
       orderItemEntity.setOrder(entity);
       orderItems.add(orderItemEntity);

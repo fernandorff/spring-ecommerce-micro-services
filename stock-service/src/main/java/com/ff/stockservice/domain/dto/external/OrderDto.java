@@ -1,4 +1,4 @@
-package com.ff.orderservice.domain.dto;
+package com.ff.stockservice.domain.dto.external;
 
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,9 +22,9 @@ public class OrderDto {
   @Schema(description = "Unique identifier")
   private Long id;
 
+  @Valid
   @ArraySchema(items = @Schema(description = "List of order items", implementation = OrderItemDto.class))
   @UniqueElements(message = "Order items can't be repeated")
-  @Valid
   List<OrderItemDto> orderItems;
 
   @Schema(description = "Purchase date", example = "2022-12-12T12:00:00", defaultValue = "2022-12-12T12:00:00")
