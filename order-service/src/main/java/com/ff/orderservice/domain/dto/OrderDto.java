@@ -21,7 +21,7 @@ public class OrderDto {
   @Schema(description = "Unique identifier")
   private Long id;
 
-  @Schema(description = "List of order items")
+  @Schema(description = "List of order items", implementation = OrderItemDto.class)
   @UniqueElements(message = "Order items can't be repeated")
   @Valid
   List<OrderItemDto> orderItems;

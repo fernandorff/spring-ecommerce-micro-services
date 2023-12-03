@@ -6,8 +6,7 @@ import com.ff.orderservice.domain.dto.OrderItemDto;
 import com.ff.orderservice.domain.entity.Order;
 import com.ff.orderservice.domain.entity.OrderItem;
 import com.ff.orderservice.repository.OrderRepository;
-import com.ff.orderservice.utils.OrderItemUtils;
-import com.ff.orderservice.utils.OrderUtils;
+import com.ff.orderservice.utils.OrderMapper;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class OrderService {
   public OrderDto createUpdateOrder(OrderDto dto) {
     validateUniqueStockIds(dto.getOrderItems());
 
-    var entity = OrderUtils.toEntity(dto);
+    var entity = OrderMapper.MAPPER.toOrder(dto);
 
     List<OrderItem> orderItems = new ArrayList<>();
     for (OrderItemDto itemDto : dto.getOrderItems()) {
@@ -47,7 +46,7 @@ public class OrderService {
       } catch (Exception e) {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Stock not found");
       }
-      OrderItem orderItemEntity = OrderItemUtils.toEntity(itemDto);
+      OrderItem orderItemEntity = OrderMapper.MAPPER.toOrderItem(itemDto);
       orderItemEntity.setOrder(entity);
       orderItems.add(orderItemEntity);
     }
@@ -56,7 +55,7 @@ public class OrderService {
 
     entity = repository.save(entity);
 
-    return OrderUtils.toDto(entity);
+    return OrderMapper.MAPPER.toOrderDto(entity);
   }
 
   @Transactional
@@ -76,12 +75,13 @@ public class OrderService {
   }
 
   public List<OrderDto> getAllOrders() {
-    return repository.findAll().stream().map(OrderUtils::toDto).collect(Collectors.toList());
+    return repository.findAll().stream().map(OrderMapper.MAPPER::toOrderDto)
+        .collect(Collectors.toList());
   }
 
   public Page<OrderDto> getPagedOrders(Pageable pageable) {
     Page<Order> OrdersPage = repository.findAll(pageable);
-    return OrdersPage.map(OrderUtils::toDto);
+    return OrdersPage.map(OrderMapper.MAPPER::toOrderDto);
   }
 
   private void validateUniqueStockIds(@Valid List<OrderItemDto> orderItems) {
