@@ -27,11 +27,9 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class OrderService {
 
-  private final OrderRepository repository;
-
-  private final StockApiCommunicationService stockApiCommunicationService;
-
   private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+  private final OrderRepository repository;
+  private final StockApiCommunicationService stockApiCommunicationService;
 
   @Transactional
   public OrderDto createUpdateOrder(OrderDto dto) {

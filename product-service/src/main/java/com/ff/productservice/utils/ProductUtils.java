@@ -6,19 +6,19 @@ import org.springframework.beans.BeanUtils;
 
 public class ProductUtils {
 
-    public static Product toEntity(ProductDto dto) {
-        var entity = new Product();
+  public static Product toEntity(ProductDto dto) {
+    var entity = new Product();
 
-        BeanUtils.copyProperties(dto, entity);
+    BeanUtils.copyProperties(dto, entity);
 
-        return entity;
-    }
+    return entity;
+  }
 
-    public static ProductDto toDto(Product entity) {
-        var dto = new ProductDto();
+  public static ProductDto toDto(Product entity) {
+    var dto = new ProductDto();
 
-        BeanUtils.copyProperties(entity, dto);
+    BeanUtils.copyProperties(entity, dto);
 
-        return dto;
-    }
+    return dto;
+  }
 }

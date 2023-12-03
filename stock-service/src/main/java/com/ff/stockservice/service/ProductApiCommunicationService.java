@@ -1,6 +1,6 @@
-package com.ff.orderservice.service;
+package com.ff.stockservice.service;
 
-import com.ff.orderservice.domain.dto.StockDto;
+import com.ff.stockservice.domain.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -8,14 +8,14 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
-public class StockApiCommunicationService {
+public class ProductApiCommunicationService {
 
   private final RestTemplate restTemplate;
   @Value("${stock.service.url}")
   private String stockServiceUrl;
 
-  public StockDto getStockById(Long id) {
-    String url = stockServiceUrl + "/stock/" + id;
-    return restTemplate.getForObject(url, StockDto.class);
+  public ProductDto getProductById(Long id) {
+    String url = stockServiceUrl + "/product/" + id;
+    return restTemplate.getForObject(url, ProductDto.class);
   }
 }

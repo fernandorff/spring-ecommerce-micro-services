@@ -18,14 +18,12 @@ import org.hibernate.validator.constraints.UniqueElements;
 @Schema(description = "Order data transfer object")
 public class OrderDto {
 
-  @Schema(description = "Unique identifier")
-  private Long id;
-
   @Schema(description = "List of order items", implementation = OrderItemDto.class)
   @UniqueElements(message = "Order items can't be repeated")
   @Valid
   List<OrderItemDto> orderItems;
-
+  @Schema(description = "Unique identifier")
+  private Long id;
   @Schema(description = "Purchase date", example = "2022-12-12T12:00:00", defaultValue = "2022-12-12T12:00:00")
   private LocalDateTime orderDate;
 }

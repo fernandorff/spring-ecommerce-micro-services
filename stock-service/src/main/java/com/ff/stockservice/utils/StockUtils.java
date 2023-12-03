@@ -6,19 +6,19 @@ import org.springframework.beans.BeanUtils;
 
 public class StockUtils {
 
-    public static Stock toEntity(StockDto dto) {
-        var entity = new Stock();
+  public static Stock toEntity(StockDto dto) {
+    var entity = new Stock();
 
-        BeanUtils.copyProperties(dto, entity);
+    BeanUtils.copyProperties(dto, entity);
 
-        return entity;
-    }
+    return entity;
+  }
 
-    public static StockDto toDto(Stock entity) {
-        var dto = new StockDto();
+  public static StockDto toDto(Stock entity) {
+    var dto = new StockDto();
 
-        BeanUtils.copyProperties(entity, dto);
+    BeanUtils.copyProperties(entity, dto);
 
-        return dto;
-    }
+    return dto;
+  }
 }

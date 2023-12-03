@@ -15,17 +15,17 @@ import lombok.Setter;
 @Schema(description = "Stock data transfer object")
 public class StockDto {
 
-    @Schema(description = "Unique identifier")
-    private Long id;
+  @Schema(description = "Unique identifier")
+  private Long id;
 
-    @Schema(description = "Description", example = "Example stock")
-    private String description;
+  @Schema(description = "Description", example = "Example stock")
+  private String description;
 
-    @Schema(description = "Available amount", example = "5")
-    @Min(value = 0, message = "Available amount must not be less than 0")
-    private Integer availableAmount;
+  @Schema(description = "Available amount", example = "5")
+  @Min(value = 0, message = "Available amount must not be less than 0")
+  private Integer availableAmount;
 
-    @Schema(description = "Product Id", example = "5")
-    @Min(value = 0, message = "Product Id invalid")
-    private Long productId;
+  @Schema(description = "Product Id", example = "5")
+  @Min(value = 0, message = "Product Id invalid")
+  private Long productId;
 }
