@@ -1,7 +1,9 @@
 package com.ff.orderservice.controller;
 
+import com.ff.orderservice.domain.dto.OrderCompleteDto;
 import com.ff.orderservice.domain.dto.OrderDto;
 import com.ff.orderservice.service.OrderService;
+import com.ff.orderservice.service.sink.OrderSink;
 import com.ff.orderservice.utils.OrderMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/order")
@@ -31,6 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
   private final OrderService service;
+
+  private final OrderSink orderSink = OrderSink.getOrderSinkInstance();
 
   @PostMapping()
   @Operation(summary = "Create or update order", method = "POST")
@@ -80,7 +86,6 @@ public class OrderController {
   @GetMapping("/pagination")
   @Operation(summary = "Get all orders with pagination", method = "GET")
   @ResponseStatus(HttpStatus.OK)
-
   public ResponseEntity<Page<OrderDto>> getAllOrders(
       @Parameter(description = "Pagination parameters",
           example = "{ \"page\": 0, \"size\": 10, \"sort\": \"id,asc\" }",
@@ -88,5 +93,10 @@ public class OrderController {
       @PageableDefault(size = 10, page = 0, sort = "id") Pageable pageable
   ) {
     return ResponseEntity.ok(service.getPagedOrders(pageable));
+  }
+
+  @GetMapping(value = "/subscribe/complete-orders", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  public Flux<OrderCompleteDto> subscribeCompleteOrders() {
+    return orderSink.getFlux();
   }
 }

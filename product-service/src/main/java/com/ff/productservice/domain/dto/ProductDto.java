@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Getter
@@ -24,6 +23,6 @@ public class ProductDto {
   @Schema(description = "Price of the product", example = "19.99")
   private Double price;
 
-  @Schema(description = "Image file of the product", hidden = true)
-  private MultipartFile imageFile;
+  @Schema(description = "Image file of the product")
+  private String imageFile;
 }

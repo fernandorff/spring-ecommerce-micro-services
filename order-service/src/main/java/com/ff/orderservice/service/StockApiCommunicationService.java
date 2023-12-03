@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ff.orderservice.domain.dto.OrderDto;
-import com.ff.orderservice.domain.dto.external.StockDto;
+import com.ff.orderservice.domain.dto.StockDto;
 import jakarta.validation.ValidationException;
 import java.util.List;
 import java.util.Objects;

@@ -1,11 +1,13 @@
 package com.ff.orderservice.service;
 
 
+import com.ff.orderservice.domain.dto.OrderCompleteDto;
 import com.ff.orderservice.domain.dto.OrderDto;
 import com.ff.orderservice.domain.dto.OrderItemDto;
 import com.ff.orderservice.domain.entity.Order;
 import com.ff.orderservice.domain.entity.OrderItem;
 import com.ff.orderservice.repository.OrderRepository;
+import com.ff.orderservice.service.kafka.KafkaProducer;
 import com.ff.orderservice.utils.OrderMapper;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -28,8 +30,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class OrderService {
 
   private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
   private final OrderRepository repository;
+
   private final StockApiCommunicationService stockApiCommunicationService;
+
+  private final KafkaProducer kafkaProducer;
 
   @Transactional
   public OrderDto createUpdateOrder(OrderDto dto) {
@@ -49,6 +55,12 @@ public class OrderService {
     entity.setOrderItems(orderItems);
 
     entity = repository.save(entity);
+
+    var orderCompleteDto = OrderCompleteDto.create(entity.getId(),
+        orderItems.stream().map(OrderItem::getStockId).toList(), orderItems.size(), 0.0,
+        entity.getOrderDate());
+
+    kafkaProducer.sendOrderCompleteMessage(orderCompleteDto);
 
     return OrderMapper.MAPPER.toOrderDto(entity);
   }
