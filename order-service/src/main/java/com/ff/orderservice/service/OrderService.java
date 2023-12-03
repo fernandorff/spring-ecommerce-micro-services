@@ -64,12 +64,12 @@ public class OrderService {
     return createUpdateOrder(dto);
   }
 
+  @Transactional
   public void deleteOrder(Long id) {
     repository.deleteById(id);
   }
 
   public Order getOrderById(Long id) {
-
     return repository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
   }

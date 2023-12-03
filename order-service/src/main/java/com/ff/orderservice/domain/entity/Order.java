@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
@@ -22,7 +21,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table(schema = "order", name = "t_order")
 @Entity
-@ToString
 public class Order {
 
   @Id

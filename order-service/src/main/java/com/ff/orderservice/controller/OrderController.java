@@ -65,7 +65,7 @@ public class OrderController {
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<OrderDto> getOrderById(
       @PathVariable Long id
-  ) throws Exception {
+  ) {
     var dto = OrderMapper.MAPPER.toOrderDto(service.getOrderById(id));
     return ResponseEntity.ok(dto);
   }

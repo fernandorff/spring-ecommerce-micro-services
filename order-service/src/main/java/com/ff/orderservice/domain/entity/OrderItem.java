@@ -12,8 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import lombok.ToString.Exclude;
 
 @Getter
 @Setter
@@ -21,7 +19,6 @@ import lombok.ToString.Exclude;
 @NoArgsConstructor
 @Table(schema = "order", name = "t_order_item")
 @Entity
-@ToString
 public class OrderItem {
 
   @Id
@@ -29,7 +26,6 @@ public class OrderItem {
   @Column(name = "id")
   private Long id;
 
-  @Exclude
   @ManyToOne
   @JoinColumn(name = "order_id", nullable = false)
   private Order order;
