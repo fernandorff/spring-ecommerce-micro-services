@@ -1,16 +1,14 @@
 package com.ff.stockservice.service;
 
 
-import com.ff.stockservice.domain.dto.StockDto;
-import com.ff.stockservice.domain.dto.external.OrderDto;
-import com.ff.stockservice.domain.dto.external.OrderItemDto;
-import com.ff.stockservice.domain.dto.external.ProductDto;
+import com.ff.stockservice.domain.dto.*;
 import com.ff.stockservice.domain.entity.Stock;
 import com.ff.stockservice.repository.StockRepository;
 import com.ff.stockservice.utils.StockUtils;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -28,7 +26,7 @@ public class StockService {
 
   private final ProductApiCommunicationService productApiCommunicationService;
 
-  public StockDto createUpdateStock(StockDto dto) {
+  public StockDto createStock(StockCreationDto dto) {
     var entity = StockUtils.toEntity(dto);
 
     try {
@@ -43,9 +41,40 @@ public class StockService {
     return StockUtils.toDto(entity);
   }
 
-  public StockDto updateStock(StockDto dto) {
-    getStockById(dto.getId());
-    return createUpdateStock(dto);
+  public StockDto updateStock(StockUpdateDto dto) {
+
+    var stock = repository.findById(dto.getId()).
+            orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+            "Stock with id: "+ dto.getId() + " not found"));
+
+    var newDescription = dto.getDescription();
+    if (newDescription != null && !newDescription.isBlank()) {
+      stock.setDescription(newDescription);
+    }
+
+    var newPrice = dto.getPrice();
+    if (newPrice != null && newPrice >= 0) {
+      stock.setPrice(newPrice);
+    }
+
+    return StockUtils.toDto(repository.save(stock));
+  }
+
+  public StockDto refillStock(StockRefillDto dto) {
+    var stock = repository.findById(dto.getId()).
+            orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Stock with id: "+dto.getId() + " not found"));
+
+    var currentAmount = stock.getAvailableAmount();
+    var currentCost = stock.getCost();
+
+    var newAmount = currentAmount + dto.getBoughtAmount();
+    var newCost = ( (currentAmount * currentCost) + (dto.getBoughtAmount() * dto.getCost()) ) / newAmount;
+
+    stock.setAvailableAmount(newAmount);
+    stock.setCost(newCost);
+
+    return StockUtils.toDto(repository.save(stock));
   }
 
   public void deleteStock(Long id) {
@@ -99,4 +128,5 @@ public class StockService {
 
     return updatedStocksList.stream().map(StockUtils::toDto).collect(Collectors.toList());
   }
+
 }

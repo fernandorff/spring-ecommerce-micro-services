@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor(staticName = "create")
 @NoArgsConstructor
-@Table(schema = "order", name = "t_order_item")
+@Table(schema = "\"order\"", name = "t_order_item")
 @Entity
 public class OrderItem {
 
@@ -32,6 +32,12 @@ public class OrderItem {
 
   @Column(name = "stock_id")
   private Long stockId;
+
+  @Column(name = "product_id")
+  private Long productId;
+
+  @Column(name = "price")
+  private Double price;
 
   @Column(name = "purchased_quantity")
   private Integer purchasedQuantity;

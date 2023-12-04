@@ -35,4 +35,10 @@ public class Stock {
   @Column(name = "available_amount")
   private Integer availableAmount;
 
+  @Column(name = "price")
+  private Double price;
+
+  @Column(name = "cost")
+  private Double cost;
+
 }

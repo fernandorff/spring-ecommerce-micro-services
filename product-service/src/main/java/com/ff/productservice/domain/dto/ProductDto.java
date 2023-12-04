@@ -20,8 +20,8 @@ public class ProductDto {
   @Schema(description = "Name of the product", example = "Example Product")
   private String name;
 
-  @Schema(description = "Price of the product", example = "19.99")
-  private Double price;
+  @Schema(description = "Product's description", example = "The best product that does what you need.")
+  private String description;
 
   @Schema(description = "Image file of the product")
   private String imageFile;

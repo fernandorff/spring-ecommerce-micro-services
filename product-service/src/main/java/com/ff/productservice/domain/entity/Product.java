@@ -27,8 +27,8 @@ public class Product {
   @Column(name = "name")
   private String name;
 
-  @Column(name = "price")
-  private Double price;
+  @Column(name = "description")
+  private String description;
 
   @Column(name = "image_url")
   private String imageUrl;

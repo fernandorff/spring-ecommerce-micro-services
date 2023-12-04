@@ -1,6 +1,6 @@
 package com.ff.stockservice.service;
 
-import com.ff.stockservice.domain.dto.external.ProductDto;
+import com.ff.stockservice.domain.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

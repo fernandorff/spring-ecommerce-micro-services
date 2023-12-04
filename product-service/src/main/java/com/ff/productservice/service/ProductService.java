@@ -48,9 +48,9 @@ public class ProductService {
     repository.deleteById(id);
   }
 
-  public Product getProductById(Long id) {
-    return repository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+  public ProductDto getProductById(Long id) {
+    return ProductUtils.toDto(repository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found")));
   }
 
   public List<ProductDto> getAllProducts() {
@@ -66,7 +66,7 @@ public class ProductService {
 
     var bucket = "paradis-product-images";
 
-    var region = "us-east-1";
+    var region = "us-east-2";
 
     byte[] imgToInsert = Base64.getDecoder().decode(image);
 

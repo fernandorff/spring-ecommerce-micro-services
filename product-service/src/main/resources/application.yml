@@ -1,0 +1,41 @@
+# SERVER
+server:
+  port: 2222
+  servlet:
+    context-path: /
+  error:
+    include-message: always
+  forward-headers-strategy: framework
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/paradis_db
+    username: postgres
+    password: 123123
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+
+# EXTERNAL SERVICES
+stock:
+  service:
+    url: http://localhost:3333
+
+# KAFKA
+spring.kafka.producer:
+  bootstrap-servers: localhost:9092
+  key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

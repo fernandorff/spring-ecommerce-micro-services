@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AwsConfig {
 
-  private final String region = "us-east-1";
+  private final String region = "us-east-2";
 
   private final String accessKey = "AKIATGG5RTUXIMB6R7VE";
 

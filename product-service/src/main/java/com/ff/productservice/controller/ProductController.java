@@ -68,8 +68,7 @@ public class ProductController {
   ) {
     System.out.println("@PathVariable Long id");
     System.out.println(id);
-    var dto = ProductUtils.toDto(service.getProductById(id));
-    return ResponseEntity.ok(dto);
+    return ResponseEntity.ok(service.getProductById(id));
   }
 
   @GetMapping()

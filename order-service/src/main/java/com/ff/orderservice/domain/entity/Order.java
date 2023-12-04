@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor(staticName = "create")
 @NoArgsConstructor
-@Table(schema = "order", name = "t_order")
+@Table(schema = "\"order\"", name = "t_order")
 @Entity
 public class Order {
 

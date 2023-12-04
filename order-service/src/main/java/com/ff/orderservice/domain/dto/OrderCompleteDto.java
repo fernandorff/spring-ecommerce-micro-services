@@ -21,7 +21,7 @@ public class OrderCompleteDto {
 
   private Integer productsAmount;
 
-  private Double totalValue;
+  private Double totalPrice;
 
   private LocalDateTime orderDate;
 }

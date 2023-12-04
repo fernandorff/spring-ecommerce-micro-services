@@ -20,7 +20,7 @@ public class StockDto {
   @Schema(description = "Unique identifier")
   private Long id;
 
-  @Schema(description = "Description", example = "Example stock")
+  @Schema(description = "Description", example = "Promotional stock")
   private String description;
 
   @Schema(description = "Available amount", example = "5")
@@ -30,4 +30,12 @@ public class StockDto {
   @Schema(description = "Product Id", example = "5")
   @Min(value = 0, message = "Product Id invalid")
   private Long productId;
+
+  @Schema(description = "Price the item is being sold for.", example = "19.99")
+  @Min(value = 0, message = "Price can't be negative")
+  private Double price;
+
+  @Schema(description = "How much was paid for the item", example = "10.00")
+  @Min(value = 0, message = "Cost can't be negative")
+  private Double cost;
 }
