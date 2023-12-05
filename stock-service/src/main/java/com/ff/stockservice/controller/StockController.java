@@ -28,7 +28,7 @@ public class StockController {
   @Operation(summary = "Create stock", method = "POST")
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<StockDto> saveStock(
-          @Valid @RequestBody StockCreationDto dto
+      @Valid @RequestBody StockDto dto
   ) {
     return ResponseEntity.ok(service.createStock(dto));
   }
@@ -46,8 +46,8 @@ public class StockController {
   @Operation(summary = "Refill stock. Requires number of items bought and their unit price.")
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<StockDto> refillStock(
-          @Valid @RequestBody StockRefillDto dto
-          ) {
+      @Valid @RequestBody StockRefillDto dto
+  ) {
     return ResponseEntity.ok(service.refillStock(dto));
   }
 
@@ -69,6 +69,15 @@ public class StockController {
   ) {
     var dto = StockUtils.toDto(service.getStockById(id));
     return ResponseEntity.ok(dto);
+  }
+
+  @GetMapping("/by-product-id/{productId}")
+  @Operation(summary = "Get stocks by product id", method = "GET")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<StockDto> getStockByProductId(
+      @PathVariable Long productId
+  ) {
+    return ResponseEntity.ok(service.getStockByProductId(productId));
   }
 
   @GetMapping()

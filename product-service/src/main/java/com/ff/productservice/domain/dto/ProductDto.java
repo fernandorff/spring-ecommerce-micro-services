@@ -24,5 +24,8 @@ public class ProductDto {
   private String description;
 
   @Schema(description = "Image file of the product")
-  private String imageFile;
+  private String imageFileBase64;
+
+  @Schema(description = "Image url of the product")
+  private String imageUrl;
 }

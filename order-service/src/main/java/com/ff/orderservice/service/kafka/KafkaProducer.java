@@ -1,6 +1,6 @@
 package com.ff.orderservice.service.kafka;
 
-import com.ff.orderservice.domain.dto.OrderCompleteDto;
+import com.ff.orderservice.domain.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ public class KafkaProducer {
 
   private final KafkaTemplate kafkaTemplate;
 
-  public void sendOrderCompleteMessage(OrderCompleteDto orderCompleteDto) {
+  public void sendOrderCompleteMessage(OrderDto orderCompleteDto) {
     kafkaTemplate.send("complete_orders", orderCompleteDto, orderCompleteDto);
   }
 }

@@ -1,7 +1,5 @@
 package com.ff.orderservice.service;
 
-
-import com.ff.orderservice.domain.dto.OrderCompleteDto;
 import com.ff.orderservice.domain.dto.OrderDto;
 import com.ff.orderservice.domain.dto.OrderItemDto;
 import com.ff.orderservice.domain.entity.Order;
@@ -56,11 +54,7 @@ public class OrderService {
 
     entity = repository.save(entity);
 
-    var orderCompleteDto = OrderCompleteDto.create(entity.getId(),
-        orderItems.stream().map(OrderItem::getStockId).toList(), orderItems.size(), 0.0,
-        entity.getOrderDate());
-
-    kafkaProducer.sendOrderCompleteMessage(orderCompleteDto);
+    kafkaProducer.sendOrderCompleteMessage(dto);
 
     return OrderMapper.MAPPER.toOrderDto(entity);
   }

@@ -1,6 +1,5 @@
 package com.ff.orderservice.controller;
 
-import com.ff.orderservice.domain.dto.OrderCompleteDto;
 import com.ff.orderservice.domain.dto.OrderDto;
 import com.ff.orderservice.service.OrderService;
 import com.ff.orderservice.service.sink.OrderSink;
@@ -96,7 +95,7 @@ public class OrderController {
   }
 
   @GetMapping(value = "/subscribe/complete-orders", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public Flux<OrderCompleteDto> subscribeCompleteOrders() {
+  public Flux<OrderDto> subscribeCompleteOrders() {
     return orderSink.getFlux();
   }
 }

@@ -1,7 +1,7 @@
 package com.ff.orderservice.service.sink;
 
 
-import com.ff.orderservice.domain.dto.OrderCompleteDto;
+import com.ff.orderservice.domain.dto.OrderDto;
 import lombok.Getter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
@@ -10,13 +10,13 @@ public class OrderSink {
 
   private static OrderSink ORDER_SINK_INSTANCE = null;
 
-  private Sinks.Many<OrderCompleteDto> sink;
+  private Sinks.Many<OrderDto> sink;
 
   @Getter
-  private Flux<OrderCompleteDto> flux;
+  private Flux<OrderDto> flux;
 
   private OrderSink() {
-    sink = Sinks.many().replay().limit(2);
+    sink = Sinks.many().replay().limit(1);
     flux = this.sink.asFlux();
   }
 
@@ -27,7 +27,7 @@ public class OrderSink {
     return ORDER_SINK_INSTANCE;
   }
 
-  public void publishOrderCompleteMessage(OrderCompleteDto orderCompleteDto) {
+  public void publishOrderCompleteMessage(OrderDto orderCompleteDto) {
     this.sink.tryEmitNext(orderCompleteDto);
   }
 }

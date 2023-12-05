@@ -29,13 +29,21 @@ public class ProductService {
   public ProductDto createUpdateProduct(ProductDto dto) {
     var entity = ProductUtils.toEntity(dto);
 
-    if (dto.getImageFile() != null && !dto.getImageFile().isBlank() && !dto.getImageFile()
+    entity = repository.save(entity);
+
+    if (dto.getImageFileBase64() != null && !dto.getImageFileBase64().isBlank()
+        && !dto.getImageFileBase64()
         .isEmpty()) {
-      var imageUrl = saveImageInBucketS3AndReturnUrl(dto.getImageFile(), dto.getId() + ".jpeg");
+      var imageName = entity.getName().trim().toLowerCase().replaceAll("\\s", "-");
+      var imageUrl = saveImageInBucketS3AndReturnUrl(dto.getImageFileBase64(),
+          entity.getId() + "-" + imageName + ".jpeg");
       entity.setImageUrl(imageUrl);
     }
 
+    System.out.println(entity.getImageUrl());
+
     entity = repository.save(entity);
+
     return ProductUtils.toDto(entity);
   }
 

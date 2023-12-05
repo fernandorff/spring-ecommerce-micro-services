@@ -1,6 +1,6 @@
 package com.ff.orderservice.config;
 
-import com.ff.orderservice.domain.dto.OrderCompleteDto;
+import com.ff.orderservice.domain.dto.OrderDto;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -38,8 +38,8 @@ public class KafkaConfig {
     props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
     props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-    props.put(JsonDeserializer.KEY_DEFAULT_TYPE, OrderCompleteDto.class);
-    props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, OrderCompleteDto.class);
+    props.put(JsonDeserializer.KEY_DEFAULT_TYPE, OrderDto.class);
+    props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, OrderDto.class);
     return props;
   }
 
