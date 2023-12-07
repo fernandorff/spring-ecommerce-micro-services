@@ -18,14 +18,21 @@ Before you start, ensure you have the following installed on your machine:
 
 1. Clone the repository:
 
-   bash
-   git clone https://github.com/fernandorff/spring-ecommerce-micro-services.git
-   cd spring-ecommerce-micro-services
+```
+git clone https://github.com/fernandorff/spring-ecommerce-micro-services.git
+
+cd spring-ecommerce-micro-services
+```
 
 2. Start Apache Kafka and create necessary topics.
 
-  cd ./kafka-simple
-  docker compose
+```
+cd ./kafka-simple
+
+docker compose
+```
+
+3. Start each service locally.
 
 ## Microservices Overview
 
