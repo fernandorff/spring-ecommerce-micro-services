@@ -19,6 +19,14 @@ https://github.com/fernandorff/react-e-commerce
 
 This repository contains the backend microservices API for a Spring-based E-Commerce system. The microservices are built using Spring Boot, WebFlux, Kafka, and communicate with each other to provide a seamless E-Commerce experience. The API is documented using Swagger.
 
+## Technologies Used
+
+- **Spring Boot:** Backend framework.
+- **WebFlux:** Reactive programming.
+- **Kafka:** Message broker for communication between microservices.
+- **PostgreSQL:** Database for storing application data.
+- **Swagger:** API documentation.
+
 ## Prerequisites
 
 Before you start, ensure you have the following installed on your machine:
@@ -84,14 +92,6 @@ docker compose
 
 ![image](https://github.com/fernandorff/spring-ecommerce-micro-services/assets/101672271/a6874e4d-17aa-4512-8679-918f8dfb31b4)
 
-
-## Technologies Used
-
-- **Spring Boot:** Backend framework.
-- **WebFlux:** Reactive programming.
-- **Kafka:** Message broker for communication between microservices.
-- **PostgreSQL:** Database for storing application data.
-- **Swagger:** API documentation.
 
 ## API Documentation
 
