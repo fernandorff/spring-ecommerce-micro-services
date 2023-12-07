@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.UniqueElements;
 
 
@@ -17,16 +18,15 @@ import org.hibernate.validator.constraints.UniqueElements;
 @AllArgsConstructor(staticName = "create")
 @NoArgsConstructor
 @Schema(description = "Order data transfer object")
+@ToString
 public class OrderDto {
-
-  @Schema(description = "Unique identifier")
-  private Long id;
 
   @ArraySchema(items = @Schema(description = "List of order items", implementation = OrderItemDto.class))
   @UniqueElements(message = "Order items can't be repeated")
   @Valid
   List<OrderItemDto> orderItems;
-
+  @Schema(description = "Unique identifier")
+  private Long id;
   @Schema(description = "Purchase date", example = "2022-12-12T12:00:00", defaultValue = "2022-12-12T12:00:00")
   private LocalDateTime orderDate;
 }

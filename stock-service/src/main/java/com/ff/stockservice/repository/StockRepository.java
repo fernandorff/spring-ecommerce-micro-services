@@ -14,4 +14,9 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
   List<Stock> findAllByProductIdAndAvailableAmountGreaterThanOrderByPriceAsc(Long productId,
       int availableAmount);
 
+  List<Stock> findAllByIsActiveTrue();
+
+  List<Stock> findByProductId(Long productId);
+
+
 }

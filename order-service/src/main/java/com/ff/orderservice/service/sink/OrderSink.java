@@ -10,13 +10,13 @@ public class OrderSink {
 
   private static OrderSink ORDER_SINK_INSTANCE = null;
 
-  private Sinks.Many<OrderDto> sink;
+  private final Sinks.Many<OrderDto> sink;
 
   @Getter
-  private Flux<OrderDto> flux;
+  private final Flux<OrderDto> flux;
 
   private OrderSink() {
-    sink = Sinks.many().replay().limit(1);
+    sink = Sinks.many().multicast().onBackpressureBuffer();
     flux = this.sink.asFlux();
   }
 

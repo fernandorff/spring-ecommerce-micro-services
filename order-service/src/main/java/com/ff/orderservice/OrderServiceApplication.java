@@ -2,6 +2,7 @@ package com.ff.orderservice;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.servers.Server;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ public class OrderServiceApplication {
   public WebMvcConfigurer configure() {
     return new WebMvcConfigurer() {
       @Override
-      public void addCorsMappings(CorsRegistry registry) {
+      public void addCorsMappings(@NotNull CorsRegistry registry) {
         registry.addMapping("/**")
             .allowedOrigins("*")
             .allowedMethods("*")

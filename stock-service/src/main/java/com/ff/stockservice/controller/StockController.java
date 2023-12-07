@@ -54,11 +54,10 @@ public class StockController {
   @DeleteMapping(value = "/{id}")
   @Operation(summary = "Delete stock", method = "DELETE")
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<?> deleteStock(
+  public ResponseEntity<StockDto> deleteStock(
       @PathVariable Long id
   ) {
-    service.deleteStock(id);
-    return ResponseEntity.ok("Stock successfully deleted!");
+    return ResponseEntity.ok(service.deleteStock(id));
   }
 
   @GetMapping(value = "/{id}")
@@ -71,13 +70,22 @@ public class StockController {
     return ResponseEntity.ok(dto);
   }
 
+  @GetMapping("/by-product-id/first-cheapest-available/{productId}")
+  @Operation(summary = "Get first cheapest available stock by product id", method = "GET")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<StockDto> getFirstCheapestAvailableStockByProductId(
+      @PathVariable Long productId
+  ) {
+    return ResponseEntity.ok(service.getFirstCheapestAvailableStockByProductId(productId));
+  }
+
   @GetMapping("/by-product-id/{productId}")
   @Operation(summary = "Get stocks by product id", method = "GET")
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<StockDto> getStockByProductId(
+  public ResponseEntity<List<StockDto>> getAllStocksByProductId(
       @PathVariable Long productId
   ) {
-    return ResponseEntity.ok(service.getStockByProductId(productId));
+    return ResponseEntity.ok(service.getAllStocksByProductId(productId));
   }
 
   @GetMapping()
@@ -85,6 +93,13 @@ public class StockController {
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<StockDto>> getAllStocks() {
     return ResponseEntity.ok(service.getAllStocks());
+  }
+
+  @GetMapping("/active")
+  @Operation(summary = "Get all active stocks", method = "GET")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<List<StockDto>> getAllActiveStocks() {
+    return ResponseEntity.ok(service.getAllActiveStocks());
   }
 
   @GetMapping("/pagination")
@@ -95,7 +110,7 @@ public class StockController {
       @Parameter(description = "Pagination parameters",
           example = "{ \"page\": 0, \"size\": 10, \"sort\": \"id,asc\" }",
           name = "pageable")
-      @PageableDefault(size = 10, page = 0, sort = "id") Pageable pageable
+      @PageableDefault(sort = "id") Pageable pageable
   ) {
     return ResponseEntity.ok(service.getPagedStocks(pageable));
   }

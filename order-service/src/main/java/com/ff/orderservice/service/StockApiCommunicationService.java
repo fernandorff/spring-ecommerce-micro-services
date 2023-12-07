@@ -34,7 +34,7 @@ public class StockApiCommunicationService {
     return restTemplate.getForObject(url, StockDto.class);
   }
 
-  public List<StockDto> executeOrder(OrderDto dto) {
+  public void executeOrder(OrderDto dto) {
     String url = stockServiceUrl + "/stock/execute-order";
 
     ParameterizedTypeReference<List<StockDto>> responseType = new ParameterizedTypeReference<List<StockDto>>() {
@@ -51,11 +51,7 @@ public class StockApiCommunicationService {
       Objects.requireNonNull(stockDtos)
           .forEach(stockDto -> System.out.println(stockDto.getDescription()));
 
-      return stockDtos;
     } catch (HttpClientErrorException e) {
-      System.out.println("catch (HttpClientErrorException e)");
-      System.out.println(e.getMessage());
-      System.out.println(e.getStatusCode());
 
       try {
         String responseBody = e.getResponseBodyAsString();
@@ -65,9 +61,6 @@ public class StockApiCommunicationService {
 
         int status = jsonNode.get("status").asInt();
         String errorMessage = jsonNode.get("message").asText();
-
-        System.out.println(status);
-        System.out.println(errorMessage);
 
         if (status == HttpStatus.NOT_FOUND.value()) {
           throw new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
@@ -83,19 +76,12 @@ public class StockApiCommunicationService {
       }
 
     } catch (HttpServerErrorException e) {
-      System.out.println(e.getMessage());
-      System.out.println(e.getStatusCode());
-      System.out.println(e.getCause());
-
-      System.out.println("} catch (HttpServerErrorException e) {");
 
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "External service error");
     } catch (ValidationException e) {
-      System.out.println("} catch (ValidationException e) {");
 
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     } catch (Exception e) {
-      System.out.println("} catch (Exception e) {");
 
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
           "An unexpected error occurred");

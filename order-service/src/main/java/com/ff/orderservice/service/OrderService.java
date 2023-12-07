@@ -9,6 +9,7 @@ import com.ff.orderservice.service.kafka.KafkaProducer;
 import com.ff.orderservice.utils.OrderMapper;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +37,7 @@ public class OrderService {
   private final KafkaProducer kafkaProducer;
 
   @Transactional
-  public OrderDto createUpdateOrder(OrderDto dto) {
+  public OrderDto createUpdateOrder(@NotNull OrderDto dto) {
     validateUniqueStockIds(dto.getOrderItems());
 
     var entity = OrderMapper.MAPPER.toOrder(dto);
@@ -50,9 +51,13 @@ public class OrderService {
       orderItems.add(orderItemEntity);
     }
 
+    logger.warn(entity.toString());
+
     entity.setOrderItems(orderItems);
 
     entity = repository.save(entity);
+
+    logger.warn(entity.toString());
 
     kafkaProducer.sendOrderCompleteMessage(dto);
 

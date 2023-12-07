@@ -10,21 +10,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AwsConfig {
 
-  private final String region = "us-east-2";
+  private static final String REGION = "us-east-2";
 
-  private final String accessKey = "AKIATGG5RTUXIMB6R7VE";
+  private static final String ACCESS_KEY = "AKIATGG5RTUXIMB6R7VE";
 
-  private final String secretKey = "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";
+  private static final String SECRET_KEY = "zbhnyQ1PDtKuS4RQe8TRO0FycJUsskJnMeXrrbr6";
 
   @Bean
   public AmazonS3 amazonS3() {
-    BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
+    BasicAWSCredentials awsCredentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
 
-    AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+    return AmazonS3ClientBuilder.standard()
         .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-        .withRegion(region)
+        .withRegion(REGION)
         .build();
-
-    return s3Client;
   }
 }

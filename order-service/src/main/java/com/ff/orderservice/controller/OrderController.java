@@ -43,6 +43,7 @@ public class OrderController {
   public ResponseEntity<OrderDto> saveOrder(
       @Valid @RequestBody OrderDto dto
   ) {
+
     return ResponseEntity.ok(service.createUpdateOrder(dto));
   }
 
@@ -89,7 +90,7 @@ public class OrderController {
       @Parameter(description = "Pagination parameters",
           example = "{ \"page\": 0, \"size\": 10, \"sort\": \"id,asc\" }",
           name = "pageable")
-      @PageableDefault(size = 10, page = 0, sort = "id") Pageable pageable
+      @PageableDefault(sort = "id") Pageable pageable
   ) {
     return ResponseEntity.ok(service.getPagedOrders(pageable));
   }

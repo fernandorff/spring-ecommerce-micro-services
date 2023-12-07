@@ -22,101 +22,107 @@
   <dependencies>
     <!-- Spring  -->
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-devtools</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+      <scope>runtime</scope>
     </dependency>
 
     <!-- WebFlux  -->
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
+      <groupId>org.springframework.boot</groupId>
     </dependency>
 
     <!-- Database -->
     <dependency>
-      <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
+      <groupId>org.postgresql</groupId>
       <scope>runtime</scope>
     </dependency>
 
     <!-- Kafka  -->
     <dependency>
-      <groupId>org.springframework.kafka</groupId>
       <artifactId>spring-kafka</artifactId>
+      <groupId>org.springframework.kafka</groupId>
     </dependency>
 
     <!-- Lombok -->
     <dependency>
-      <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
       <optional>true</optional>
     </dependency>
 
     <!-- Testing -->
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
+      <groupId>io.projectreactor</groupId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.kafka</groupId>
       <artifactId>spring-kafka-test</artifactId>
+      <groupId>org.springframework.kafka</groupId>
       <scope>test</scope>
     </dependency>
 
     <!-- Documentation -->
     <dependency>
-      <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <groupId>org.springdoc</groupId>
       <version>LATEST</version>
     </dependency>
 
     <!-- MapStruct -->
     <dependency>
-      <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct</artifactId>
+      <groupId>org.mapstruct</groupId>
       <version>LATEST</version>
     </dependency>
     <dependency>
-      <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct-processor</artifactId>
-      <version>LATEST</version>
+      <groupId>org.mapstruct</groupId>
       <scope>provided</scope>
+      <version>LATEST</version>
     </dependency>
 
     <!-- JSON Category -->
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
       <version>LATEST</version>
     </dependency>
 
     <dependency>
-      <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-s3</artifactId>
+      <groupId>com.amazonaws</groupId>
       <version>1.12.261</version>
     </dependency>
 
     <dependency>
-      <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
+      <groupId>commons-io</groupId>
       <version>LATEST</version>
     </dependency>
   </dependencies>

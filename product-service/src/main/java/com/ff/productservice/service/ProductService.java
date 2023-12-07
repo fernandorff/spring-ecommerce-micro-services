@@ -34,7 +34,7 @@ public class ProductService {
     if (dto.getImageFileBase64() != null && !dto.getImageFileBase64().isBlank()
         && !dto.getImageFileBase64()
         .isEmpty()) {
-      var imageName = entity.getName().trim().toLowerCase().replaceAll("\\s", "-");
+      var imageName = "product-" + entity.getId();
       var imageUrl = saveImageInBucketS3AndReturnUrl(dto.getImageFileBase64(),
           entity.getId() + "-" + imageName + ".jpeg");
       entity.setImageUrl(imageUrl);
@@ -52,8 +52,11 @@ public class ProductService {
     return createUpdateProduct(dto);
   }
 
-  public void deleteProduct(Long id) {
-    repository.deleteById(id);
+  public ProductDto deleteProduct(Long id) {
+    var product = repository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+    repository.delete(product);
+    return ProductUtils.toDto(product);
   }
 
   public ProductDto getProductById(Long id) {

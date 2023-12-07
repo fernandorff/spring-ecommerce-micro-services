@@ -17,6 +17,7 @@ public class ProductServiceApplication {
     SpringApplication.run(ProductServiceApplication.class, args);
   }
 
+
   @Bean
   public WebMvcConfigurer configure() {
     return new WebMvcConfigurer() {

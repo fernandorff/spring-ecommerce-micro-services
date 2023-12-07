@@ -53,11 +53,10 @@ public class ProductController {
   @DeleteMapping(value = "/{id}")
   @Operation(summary = "Delete product", method = "DELETE")
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<?> deleteProduct(
+  public ResponseEntity<ProductDto> deleteProduct(
       @PathVariable Long id
   ) {
-    service.deleteProduct(id);
-    return ResponseEntity.ok("Product successfully deleted!");
+    return ResponseEntity.ok(service.deleteProduct(id));
   }
 
   @GetMapping(value = "/{id}")
@@ -85,7 +84,7 @@ public class ProductController {
       @Parameter(description = "Pagination parameters",
           example = "{ \"page\": 0, \"size\": 10, \"sort\": \"id,asc\" }",
           name = "pageable")
-      @PageableDefault(size = 10, page = 0, sort = "id") Pageable pageable
+      @PageableDefault(sort = "id") Pageable pageable
   ) {
     return ResponseEntity.ok(service.getPagedProducts(pageable));
   }

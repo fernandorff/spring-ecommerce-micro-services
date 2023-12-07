@@ -41,4 +41,7 @@ public class Stock {
   @Column(name = "cost")
   private Double cost;
 
+  @Column(name = "is_active", columnDefinition = "boolean default false")
+  private Boolean isActive;
+
 }

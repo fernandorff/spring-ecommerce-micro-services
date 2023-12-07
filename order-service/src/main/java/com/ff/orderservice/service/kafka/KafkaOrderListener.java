@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class KafkaOrderListener {
 
-  private OrderSink orderSink = OrderSink.getOrderSinkInstance();
+  private static final OrderSink orderSink = OrderSink.getOrderSinkInstance();
 
   @KafkaListener(topics = {
       "complete_orders"}, groupId = "order_1", containerFactory = "kafkaListenerContainerFactory")

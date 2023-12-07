@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -41,4 +42,13 @@ public class OrderItem {
 
   @Column(name = "purchased_quantity")
   private Integer purchasedQuantity;
+
+  @Column(name = "product_image_url")
+  private String productImageUrl;
+
+  @Column(name = "product_name")
+  private String productName;
+
+  @Column(name = "product_description")
+  private String productDescription;
 }

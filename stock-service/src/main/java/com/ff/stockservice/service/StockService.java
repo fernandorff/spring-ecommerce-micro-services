@@ -5,12 +5,9 @@ import com.ff.stockservice.domain.dto.*;
 import com.ff.stockservice.domain.entity.Stock;
 import com.ff.stockservice.repository.StockRepository;
 import com.ff.stockservice.utils.StockUtils;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -81,8 +78,10 @@ public class StockService {
     return StockUtils.toDto(repository.save(stock));
   }
 
-  public void deleteStock(Long id) {
-    repository.deleteById(id);
+  public StockDto deleteStock(Long id) {
+    var stock = getStockById(id);
+    repository.delete(stock);
+    return StockUtils.toDto(stock);
   }
 
   public Stock getStockById(Long id) {
@@ -91,7 +90,13 @@ public class StockService {
             "Stock not found with id: " + id));
   }
 
-  public StockDto getStockByProductId(Long productId) {
+  public List<StockDto> getAllStocksByProductId(Long productId) {
+    return repository
+        .findByProductId(productId)
+        .stream().map(StockUtils::toDto).toList();
+  }
+
+  public StockDto getFirstCheapestAvailableStockByProductId(Long productId) {
     Optional<Stock> stockOptional = repository
         .findAllByProductIdAndAvailableAmountGreaterThanOrderByPriceAsc(productId, 0)
         .stream()
@@ -107,6 +112,11 @@ public class StockService {
 
   public List<StockDto> getAllStocks() {
     return repository.findAll().stream().map(StockUtils::toDto).collect(Collectors.toList());
+  }
+
+  public List<StockDto> getAllActiveStocks() {
+    return repository.findAllByIsActiveTrue().stream().map(StockUtils::toDto)
+        .collect(Collectors.toList());
   }
 
   public Page<StockDto> getPagedStocks(Pageable pageable) {
